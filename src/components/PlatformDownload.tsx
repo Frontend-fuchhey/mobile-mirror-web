@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { useState, useSyncExternalStore } from "react";
+import { Download } from "lucide-react";
 import { AppleIcon, GitHubIcon, LinuxIcon, WindowsIcon } from "@/components/Icons";
 import {
   PLATFORM_DOWNLOADS,
@@ -30,55 +30,34 @@ function detectPlatform(): PlatformId {
   return "windows";
 }
 
+const emptySubscribe = () => () => {};
+
+function useDetectedPlatform(): PlatformId {
+  return useSyncExternalStore(
+    emptySubscribe,
+    detectPlatform,
+    () => "windows" as PlatformId
+  );
+}
+
 export function HeroPlatformDownload() {
-  const [selected, setSelected] = useState<PlatformId>("windows");
+  const autoDetected = useDetectedPlatform();
+  const [manualPlatform, setManualPlatform] = useState<PlatformId | null>(null);
+  const detected = manualPlatform ?? autoDetected;
 
-  useEffect(() => {
-    setSelected(detectPlatform());
-  }, []);
-
-  const current = PLATFORM_DOWNLOADS[selected];
-  const primaryUrl = getDownloadUrl(selected);
+  const current = PLATFORM_DOWNLOADS[detected];
+  const primaryUrl = getDownloadUrl(detected);
+  const allPlatforms: PlatformId[] = ["windows", "macos", "linux"];
 
   return (
-    <div className="mt-8">
-      {/* OS Switcher Pills */}
-      <div
-        className="inline-flex items-center gap-1 rounded-lg border border-[#111827]/10 bg-[#f7f8fa] p-1"
-        role="tablist"
-        aria-label="Choose operating system"
-      >
-        {(["windows", "macos", "linux"] as const).map((id) => {
-          const item = PLATFORM_DOWNLOADS[id];
-          const active = selected === id;
-          return (
-            <button
-              key={id}
-              type="button"
-              role="tab"
-              aria-selected={active}
-              onClick={() => setSelected(id)}
-              className={`inline-flex h-8 items-center gap-1.5 rounded-md px-3 text-xs font-medium transition-colors duration-150 ${
-                active
-                  ? "bg-white text-[#111827] shadow-[0_1px_2px_rgba(17,24,39,0.08)]"
-                  : "text-[#4b5563] hover:text-[#111827]"
-              }`}
-            >
-              <PlatformIcon platform={id} className="h-3.5 w-3.5 shrink-0" />
-              {item.shortLabel}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Primary & Secondary Actions */}
-      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+    <div className="mt-7">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
         <a
           href={primaryUrl}
           download={current.filename}
-          className="inline-flex h-11 items-center justify-center gap-2.5 rounded-lg bg-[#111827] px-5 text-sm font-medium text-white shadow-[0_1px_2px_rgba(17,24,39,0.1)] transition-[background-color,transform] duration-150 hover:bg-[#1f2937] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563eb]"
+          className="inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-[#171717] px-5 text-sm font-medium text-white transition-colors duration-150 hover:bg-[#262626] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563eb]"
         >
-          <PlatformIcon platform={selected} className="h-4 w-4 shrink-0" />
+          <PlatformIcon platform={detected} className="h-4 w-4 shrink-0" />
           {current.label}
         </a>
 
@@ -86,62 +65,177 @@ export function HeroPlatformDownload() {
           href={SITE_CONFIG.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-[#111827]/14 bg-white px-5 text-sm font-medium text-[#111827] shadow-[0_1px_2px_rgba(17,24,39,0.04)] transition-[background-color,border-color,transform] duration-150 hover:border-[#111827]/24 hover:bg-[#f7f8fa] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563eb]"
+          className="inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-[#e5e5e5] bg-white px-5 text-sm font-medium text-[#171717] transition-colors duration-150 hover:border-[#d4d4d4] hover:bg-[#f8fafc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563eb]"
         >
-          <GitHubIcon className="h-4 w-4 shrink-0 text-[#4b5563]" />
+          <GitHubIcon className="h-4 w-4 shrink-0 text-[#171717]" />
           View on GitHub
         </a>
       </div>
 
-      {/* Selected Platform Specs */}
-      <dl className="mt-7 grid max-w-md grid-cols-2 gap-4 border-t border-[#111827]/8 pt-5 text-xs">
-        <div>
-          <dt className="text-[#6b7280]">Package ({current.shortLabel})</dt>
-          <dd className="mt-1 font-mono text-[#111827]">
-            {current.packageType}
-          </dd>
-        </div>
-        <div>
-          <dt className="text-[#6b7280]">Mobile support</dt>
-          <dd className="mt-1 font-mono text-[#111827]">
-            Android USB · iOS AirPlay
-          </dd>
-        </div>
-      </dl>
+      {/* Direct Platform Selector / Downloads for Windows, macOS & Linux */}
+      <div className="mt-4 flex flex-wrap items-center gap-2">
+        {allPlatforms.map((id) => {
+          const info = PLATFORM_DOWNLOADS[id];
+          const isActive = detected === id;
+          return (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setManualPlatform(id)}
+              className={`inline-flex h-8 items-center gap-1.5 rounded-md border px-2.5 text-xs font-medium transition-colors duration-150 ${
+                isActive
+                  ? "border-[#171717] bg-[#171717]/5 text-[#171717]"
+                  : "border-[#e5e5e5] bg-white text-[#737373] hover:border-[#d4d4d4] hover:text-[#171717]"
+              }`}
+            >
+              <PlatformIcon platform={id} className="h-3.5 w-3.5 shrink-0" />
+              <span>{info.shortLabel}</span>
+            </button>
+          );
+        })}
+        <a
+          href="#download"
+          className="hover-underline ml-1 text-xs font-medium text-[#2563eb] hover:text-[#1d4ed8]"
+        >
+          All downloads
+        </a>
+      </div>
+
+      <p className="mt-3 font-mono text-xs text-[#737373]">
+        Free · Open source · {current.filename}
+      </p>
     </div>
   );
 }
 
+const DOWNLOAD_CARDS: Array<{
+  id: PlatformId;
+  title: string;
+  primaryLabel: string;
+  packageMeta: string;
+  requirements: string;
+}> = [
+  {
+    id: "macos",
+    title: "macOS",
+    primaryLabel: "Download for macOS",
+    packageMeta: "Apple Silicon · .dmg",
+    requirements: "macOS 13 or later (Apple Silicon M1–M4).",
+  },
+  {
+    id: "windows",
+    title: "Windows",
+    primaryLabel: "Download for Windows",
+    packageMeta: "Windows 64-bit · .exe",
+    requirements: "Windows 10 version 1903 or Windows 11 (64-bit).",
+  },
+  {
+    id: "linux",
+    title: "Linux",
+    primaryLabel: "Download .deb (Ubuntu/Debian)",
+    packageMeta: "Linux x86_64 · .deb / .tar.gz",
+    requirements: "Ubuntu 22.04+, Debian, Fedora, Arch, or equivalent x86_64 Linux.",
+  },
+];
+
 export function AllPlatformsDownloadRow() {
+  const autoDetected = useDetectedPlatform();
+  const [hovered, setHovered] = useState<PlatformId | null>(null);
+  const selected = hovered ?? autoDetected;
+
   return (
-    <div id="download" className="flex flex-wrap items-center gap-2.5">
-      {(["windows", "macos", "linux"] as const).map((id) => {
-        const info = PLATFORM_DOWNLOADS[id];
-        return (
+    <div id="download" className="w-full">
+      <div className="overflow-hidden rounded-xl border border-[#e5e5e5] bg-white">
+        <div className="grid grid-cols-1 divide-y divide-[#e5e5e5] lg:grid-cols-3 lg:divide-x lg:divide-y-0">
+          {DOWNLOAD_CARDS.map((card) => {
+            const info = PLATFORM_DOWNLOADS[card.id];
+            const isPrimary = selected === card.id;
+            return (
+              <div
+                key={card.id}
+                onMouseEnter={() => setHovered(card.id)}
+                className="flex flex-col justify-between p-6 sm:p-8"
+              >
+                <div>
+                  <div className="flex items-center justify-between">
+                    <PlatformIcon
+                      platform={card.id}
+                      className="h-8 w-8 text-[#171717]"
+                    />
+                    <span className="font-mono text-xs text-[#737373]">
+                      {card.packageMeta}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-4 text-2xl font-medium tracking-[-0.02em] text-[#171717]">
+                    {card.title}
+                  </h3>
+
+                  <div className="mt-5 flex flex-col gap-2.5">
+                    <a
+                      href={getDownloadUrl(card.id)}
+                      download={info.filename}
+                      className={`inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg px-4 text-sm font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563eb] ${
+                        isPrimary
+                          ? "bg-[#171717] text-white hover:bg-[#262626]"
+                          : "border border-[#e5e5e5] bg-white text-[#171717] hover:border-[#d4d4d4] hover:bg-[#f8fafc]"
+                      }`}
+                    >
+                      <Download className="h-4 w-4 shrink-0" strokeWidth={1.75} />
+                      {card.primaryLabel}
+                    </a>
+                    {info.secondaryUrl && (
+                      <a
+                        href={info.secondaryUrl}
+                        download={info.secondaryFilename}
+                        className="inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-lg border border-[#e5e5e5] bg-[#f8fafc] px-3 text-xs font-medium text-[#525252] transition-colors duration-150 hover:border-[#d4d4d4] hover:text-[#171717]"
+                      >
+                        <Download className="h-3.5 w-3.5 shrink-0" strokeWidth={1.75} />
+                        {info.secondaryLabel}
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-7 border-t border-[#e5e5e5] pt-4 text-xs leading-relaxed text-[#737373]">
+                  <p className="font-medium text-[#171717]">
+                    Minimum Requirements
+                  </p>
+                  <p className="mt-0.5">{card.requirements}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* GitHub Source Code & All Releases row */}
+      <div className="mt-6 flex flex-col items-center justify-between gap-3 rounded-xl border border-[#e5e5e5] bg-white px-5 py-4 sm:flex-row">
+        <div className="flex items-center gap-2.5 text-sm text-[#737373]">
+          <GitHubIcon className="h-4 w-4 shrink-0 text-[#171717]" />
+          <span>
+            Want to build from source or inspect previous releases ({SITE_CONFIG.version})?
+          </span>
+        </div>
+        <div className="flex items-center gap-5 text-sm font-medium">
           <a
-            key={id}
-            href={getDownloadUrl(id)}
-            download={info.filename}
-            className={`inline-flex h-11 items-center justify-center gap-2 rounded-lg px-4 text-sm font-medium transition-[background-color,border-color,transform] duration-150 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563eb] ${
-              id === "windows"
-                ? "bg-[#111827] text-white shadow-[0_1px_2px_rgba(17,24,39,0.1)] hover:bg-[#1f2937]"
-                : "border border-[#111827]/14 bg-white text-[#111827] shadow-[0_1px_2px_rgba(17,24,39,0.04)] hover:border-[#111827]/24 hover:bg-[#f7f8fa]"
-            }`}
+            href={SITE_CONFIG.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover-underline text-[#171717] hover:text-[#2563eb]"
           >
-            <PlatformIcon platform={id} className="h-4 w-4 shrink-0" />
-            {info.shortLabel}
+            GitHub Source Code
           </a>
-        );
-      })}
-      <a
-        href={SITE_CONFIG.releasesUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex h-11 items-center gap-1.5 px-2 text-sm font-medium text-[#4b5563] transition-colors duration-150 hover:text-[#111827]"
-      >
-        All releases
-        <ArrowUpRight className="h-4 w-4 text-[#6b7280]" strokeWidth={1.5} />
-      </a>
+          <a
+            href={SITE_CONFIG.releasesUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover-underline text-[#2563eb] hover:text-[#1d4ed8]"
+          >
+            Browse all releases
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { HeroShowcase } from "@/components/HeroShowcase";
+import { HowItWorks } from "@/components/HowItWorks";
 import { BentoFeatures } from "@/components/BentoFeatures";
 import { SetupGuide } from "@/components/SetupGuide";
 import { FaqSection } from "@/components/FaqSection";
@@ -12,67 +13,66 @@ import { SITE_CONFIG } from "@/lib/constants";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white text-[#111827]">
+    <div className="min-h-screen bg-white text-[#171717]">
       <Navbar />
 
       <main>
-        {/* Asymmetric Split Hero */}
-        <section className="mx-auto max-w-[1220px] px-6 pt-12 pb-20 lg:px-8 lg:pt-16 lg:pb-24">
-          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,0.74fr)_minmax(0,1.26fr)] lg:gap-12">
+        {/* Hero Section */}
+        <section className="mx-auto max-w-[1380px] px-4 pt-10 pb-16 sm:px-6 sm:pt-14 sm:pb-20 lg:px-8 lg:pt-16 lg:pb-24">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-10">
             {/* Left Copy Column */}
             <div>
-              <p className="font-mono text-xs text-[#6b7280]">
-                {SITE_CONFIG.platform} · Free &amp; open source · {SITE_CONFIG.version}
+              <p className="font-mono text-xs text-[#737373]">
+                {SITE_CONFIG.platform}
               </p>
 
-              <h1 className="mt-4 text-[36px] leading-[1.06] font-medium tracking-[-0.025em] text-[#111827] sm:text-[44px] lg:text-[48px] lg:tracking-[-0.03em]">
-                Mirror Android &amp; iOS screens at{" "}
-                <span className="whitespace-nowrap">120 FPS</span>
+              <h1 className="hero-heading mt-3 font-semibold text-[#171717]">
+                Your phone screen.
+                <br />
+                On your computer.
               </h1>
 
-              <p className="mt-5 max-w-[32rem] text-[17px] leading-[1.55] font-normal text-[#4b5563]">
-                A native desktop app for Windows, macOS, and Linux built with Rust, SDL3, and
-                FFmpeg. Mirror Android over USB or iPhone via AirPlay &amp; USB, and write lossless
-                MP4 recordings straight to disk.
+              <p className="mt-4 max-w-md text-base leading-relaxed text-[#737373] sm:text-[17px]">
+                Mirror your Android or iPhone, and record your screen directly from your desktop.
               </p>
 
               <HeroPlatformDownload />
             </div>
 
-            {/* Right White Native App Window Preview */}
-            <HeroShowcase />
+            {/* Right Desktop App Preview */}
+            <div className="min-w-0">
+              <HeroShowcase />
+            </div>
           </div>
         </section>
 
-        {/* Hardware Pipeline & Spec Bench */}
+        {/* How It Works */}
+        <HowItWorks />
+
+        {/* Features */}
         <BentoFeatures />
 
-        {/* 3-Step Setup Ledger */}
+        {/* Setup Guide */}
         <SetupGuide />
 
-        {/* FAQ & Troubleshooting */}
-        <FaqSection />
-
-        {/* Bottom Download Strip */}
-        <section className="border-t border-[#111827]/8 bg-[#f7f8fa]">
-          <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 px-6 py-16 lg:flex-row lg:items-center lg:px-8 lg:py-20">
-            <div className="max-w-xl">
-              <p className="font-mono text-xs text-[#6b7280]">
-                Latest GitHub release · {SITE_CONFIG.version}
-              </p>
-              <h2 className="mt-2 text-3xl leading-[1.15] font-medium tracking-[-0.02em] text-[#111827] sm:text-4xl">
-                Install once on Windows, macOS, or Linux
+        {/* Download Section */}
+        <section className="border-t border-[#e5e5e5] bg-white py-16 sm:py-20">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-10 max-w-xl">
+              <h2 className="text-2xl font-semibold tracking-[-0.02em] text-[#171717] sm:text-3xl">
+                Download Mobile Mirror
               </h2>
-              <p className="mt-3 text-base leading-relaxed text-[#4b5563]">
-                No accounts, watermarks, or subscriptions. Press{" "}
-                <kbd className="keycap mx-0.5">R</kbd> anytime to record lossless H.264 and audio
-                straight to MP4.
+              <p className="mt-2 text-sm leading-relaxed text-[#737373] sm:text-base">
+                Latest release {SITE_CONFIG.version} for Windows, macOS, and Linux.
               </p>
             </div>
 
             <AllPlatformsDownloadRow />
           </div>
         </section>
+
+        {/* FAQ */}
+        <FaqSection />
       </main>
 
       <Footer />

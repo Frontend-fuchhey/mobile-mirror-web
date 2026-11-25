@@ -8,6 +8,9 @@ export interface PlatformDownloadInfo {
   filename: string;
   packageType: string;
   downloadUrl: string;
+  secondaryLabel?: string;
+  secondaryFilename?: string;
+  secondaryUrl?: string;
   localUrl?: string;
 }
 
@@ -37,12 +40,15 @@ export const PLATFORM_DOWNLOADS: Record<PlatformId, PlatformDownloadInfo> = {
   },
   linux: {
     id: "linux",
-    label: "Download for Linux",
+    label: "Download for Linux (.deb)",
     shortLabel: "Linux",
-    osDetail: "Linux x86_64 (Ubuntu / Fedora / Arch)",
-    filename: "MobileMirror-Linux-x86_64.tar.gz",
-    packageType: ".tar.gz bundle",
-    downloadUrl: `${RELEASES_LATEST}/MobileMirror-Linux-x86_64.tar.gz`,
+    osDetail: "Linux x86_64 (Ubuntu / Debian / Fedora / Arch)",
+    filename: "MobileMirror-Linux-amd64.deb",
+    packageType: ".deb & .tar.gz",
+    downloadUrl: `${RELEASES_LATEST}/MobileMirror-Linux-amd64.deb`,
+    secondaryLabel: "Download .tar.gz Archive",
+    secondaryFilename: "MobileMirror-Linux-x86_64.tar.gz",
+    secondaryUrl: `${RELEASES_LATEST}/MobileMirror-Linux-x86_64.tar.gz`,
   },
 };
 

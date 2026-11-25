@@ -156,7 +156,7 @@ export function HeroShowcase() {
       className="relative w-full"
     >
       {/* Exact Desktop App Frame */}
-      <div className="overflow-hidden rounded-2xl border border-[#e2e7f0] bg-[#f4f7fc] text-[#111827] shadow-[0_20px_54px_-16px_rgba(17,24,39,0.12),0_2px_6px_rgba(17,24,39,0.04)]">
+      <div className="overflow-hidden rounded-xl border border-[#e5e5e5] bg-[#f8fafc] text-[#171717] shadow-[0_10px_30px_-14px_rgba(23,23,23,0.12)]">
         {/* Top Windows Title Bar */}
         <div className="flex h-10 items-center justify-between border-b border-[#e8ecf4] bg-white px-3.5">
           <div className="flex items-center gap-2">
@@ -182,10 +182,10 @@ export function HeroShowcase() {
         </div>
 
         {/* 3-Column App Body */}
-        <div className="grid grid-cols-1 gap-3 p-3 md:grid-cols-[128px_1fr_206px]">
+        <div className="grid grid-cols-1 gap-2.5 p-2.5 sm:gap-3 sm:p-3 md:grid-cols-[106px_minmax(0,1fr)_174px] xl:grid-cols-[124px_minmax(0,1fr)_198px]">
           {/* Left Navigation Sidebar */}
           <nav
-            className="flex flex-row gap-1 md:flex-col md:pt-1"
+            className="grid grid-cols-3 gap-1 md:flex md:flex-col md:pt-1"
             aria-label="Mobile Mirror app navigation"
           >
             {(
@@ -201,7 +201,7 @@ export function HeroShowcase() {
                   key={id}
                   type="button"
                   onClick={() => setActiveTab(id)}
-                  className={`relative flex h-9 flex-1 items-center gap-2.5 rounded-lg px-3 text-left text-[13px] transition-colors duration-150 md:w-full md:flex-none ${
+                  className={`relative flex h-9 min-w-0 items-center justify-center gap-1.5 rounded-lg px-2 text-center text-[11px] transition-colors duration-150 sm:text-xs md:w-full md:justify-start md:gap-2 md:px-2.5 md:text-left ${
                     active
                       ? "bg-[#e8f0fe] font-medium text-[#2563eb]"
                       : "font-normal text-[#374151] hover:bg-[#eaf0f8] hover:text-[#111827]"
@@ -214,19 +214,19 @@ export function HeroShowcase() {
                     />
                   )}
                   <Icon
-                    className={`h-4 w-4 shrink-0 ${
+                    className={`hidden h-3.5 w-3.5 shrink-0 min-[360px]:inline-block ${
                       active ? "text-[#2563eb]" : "text-[#1f2937]"
                     }`}
                     strokeWidth={1.75}
                   />
-                  <span>{id}</span>
+                  <span className="truncate">{id}</span>
                 </button>
               );
             })}
           </nav>
 
           {/* Center White Canvas Card */}
-          <div className="flex min-h-[372px] flex-col justify-between rounded-2xl border border-[#e5eaf2] bg-white p-4">
+          <div className="flex min-h-[340px] min-w-0 flex-col justify-between rounded-xl border border-[#e5eaf2] bg-white p-3.5 sm:min-h-[364px] sm:p-4">
             {activeTab === "Home" && (
               <>
                 {!isMirroring ? (
@@ -331,7 +331,7 @@ export function HeroShowcase() {
                     </div>
                   </div>
                   <a
-                    href="#how-it-works"
+                    href="#setup"
                     className="shrink-0 text-[11px] font-semibold text-[#2563eb] transition-colors duration-150 hover:text-[#1d4ed8]"
                   >
                     Setup guide
@@ -483,7 +483,7 @@ export function HeroShowcase() {
           </div>
 
           {/* Right Control Column (Exact 3 cards from screenshot) */}
-          <div className="flex flex-col gap-3">
+          <div className="flex min-w-0 flex-col gap-2.5 sm:gap-3">
             {/* 1. Recording Card */}
             <div className="rounded-2xl border border-[#e5eaf2] bg-white p-3.5">
               <div className="flex items-center justify-between">

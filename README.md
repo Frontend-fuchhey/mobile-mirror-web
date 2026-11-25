@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mobile Mirror Web
 
-## Getting Started
+**Mobile Mirror Web** is the official website and download portal for **[Mobile Mirror](https://github.com/Frontend-fuchhey/mobile-mirror)** — a free, open-source desktop application for **Windows, macOS, and Linux** that mirrors **Android** and **iPhone / iPad** screens to your computer with one-click MP4 recording.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## About the Project
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This repository hosts the public web interface where users can:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Download Mobile Mirror**: Auto-detects the visitor's operating system (Windows, macOS, or Linux) and provides direct links to the official release installers.
+- **Follow the Quick Setup Guide**: Simple step-by-step instructions for connecting an Android phone over USB or an iPhone / iPad via AirPlay.
+- **Read FAQs & Troubleshooting**: Answers common questions about device connection, supported platforms, and privacy.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Why Mobile Mirror Exists
 
-To learn more about Next.js, take a look at the following resources:
+Most phone mirroring tools require paid subscriptions, add watermarks to recordings, or rely on complicated command-line setups. **Mobile Mirror** provides a clean, one-click desktop experience that is completely free, open-source, and runs 100% locally on the user's computer.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Code Signing & Privacy Policy
 
-## Deploy on Vercel
+Free code signing for Windows installers is provided by [SignPath.io](https://signpath.io/), and the code signing certificate is provided by the [SignPath Foundation](https://signpath.org/).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Maintainers**: [Frontend-fuchhey](https://github.com/Frontend-fuchhey)
+- **Privacy Policy**: Mobile Mirror will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## License
+
+This project is free and open-source software licensed under the **[MIT License](LICENSE)**.

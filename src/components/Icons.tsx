@@ -37,6 +37,19 @@ export function LinuxIcon({ className }: { className?: string }) {
   );
 }
 
+export function AndroidIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M17.523 15.341a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm-11.046 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm11.405-6.02 1.997-3.46a.416.416 0 0 0-.152-.567.416.416 0 0 0-.568.152L17.137 8.95C15.616 8.257 13.868 7.87 12 7.87c-1.868 0-3.616.387-5.137 1.08L4.84 5.446a.416.416 0 0 0-.568-.152.416.416 0 0 0-.152.567l1.997 3.46C2.688 11.186.343 14.658 0 18.76h24c-.343-4.102-2.688-7.574-6.118-9.439Z" />
+    </svg>
+  );
+}
+
 export function GitHubIcon({ className }: { className?: string }) {
   return (
     <svg

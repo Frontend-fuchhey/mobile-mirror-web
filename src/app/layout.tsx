@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const plexSans = IBM_Plex_Sans({
-  variable: "--font-plex-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -17,7 +17,7 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Mobile Mirror — Android & iOS Screen Mirroring for Windows, macOS & Linux",
   description:
-    "Free, open-source desktop app for Windows, macOS, and Linux. Mirror Android over USB or iPhone via AirPlay at up to 120 FPS with lossless MP4 recording.",
+    "Free, open-source desktop app for Windows, macOS, and Linux. Mirror your Android or iPhone and record your screen directly from your computer.",
   keywords: [
     "Android screen mirroring",
     "iOS AirPlay receiver",
@@ -25,13 +25,12 @@ export const metadata: Metadata = {
     "USB screen mirroring Windows macOS Linux",
     "lossless MP4 recording",
     "SDL3",
-    "scrcpy alternative",
     "Mobile Mirror",
   ],
   openGraph: {
-    title: "Mobile Mirror — Android & iOS Screen Mirroring for Windows, macOS & Linux",
+    title: "Mobile Mirror — Your phone screen. On your computer.",
     description:
-      "Under 50ms latency, 60–120 FPS hardware decoding, AirPlay 1 & 2, voice-isolated audio, and direct MP4 recording for Windows, macOS, and Linux.",
+      "Mirror your Android or iPhone, and record your screen directly from your desktop on Windows, macOS, and Linux.",
     type: "website",
   },
 };
@@ -44,9 +43,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plexSans.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${plexMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-[#ffffff] text-[#111827] selection:bg-[#2563eb]/15 selection:text-[#111827]">
+      <body className="min-h-full bg-white text-[#171717] selection:bg-[#2563eb]/15 selection:text-[#171717]">
         {children}
       </body>
     </html>

@@ -1,35 +1,37 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-plex-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "Mobile Mirror — Ultra-Low Latency Android Screen Mirroring & Lossless Recording",
+  title: "Mobile Mirror — Android & iOS Screen Mirroring for Windows, macOS & Linux",
   description:
-    "<50ms latency, 60–120 FPS hardware-accelerated Android USB screen mirroring, voice-isolated audio capture, and zero-CPU MP4 recording for Windows.",
+    "Free, open-source desktop app for Windows, macOS, and Linux. Mirror Android over USB or iPhone via AirPlay at up to 120 FPS with lossless MP4 recording.",
   keywords: [
     "Android screen mirroring",
+    "iOS AirPlay receiver",
     "low latency screen mirror",
-    "USB screen mirroring Windows",
+    "USB screen mirroring Windows macOS Linux",
     "lossless MP4 recording",
-    "NVDEC",
     "SDL3",
     "scrcpy alternative",
     "Mobile Mirror",
   ],
   openGraph: {
-    title: "Mobile Mirror — Ultra-Low Latency Android Screen Mirroring",
+    title: "Mobile Mirror — Android & iOS Screen Mirroring for Windows, macOS & Linux",
     description:
-      "<50ms latency • 60–120 FPS • Voice-Isolated Audio • Zero-CPU Overhead. Free & open-source Windows desktop app.",
+      "Under 50ms latency, 60–120 FPS hardware decoding, AirPlay 1 & 2, voice-isolated audio, and direct MP4 recording for Windows, macOS, and Linux.",
     type: "website",
   },
 };
@@ -42,9 +44,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
+      className={`${plexSans.variable} ${plexMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-[#07090e] text-[#f4f7fb] selection:bg-[#246bfd]/30 selection:text-white">
+      <body className="min-h-full bg-[#ffffff] text-[#111827] selection:bg-[#2563eb]/15 selection:text-[#111827]">
         {children}
       </body>
     </html>

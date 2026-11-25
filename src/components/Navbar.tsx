@@ -3,75 +3,74 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Menu, X, Download } from "lucide-react";
-import { GitHubIcon } from "@/components/Icons";
-import { SITE_CONFIG, getDownloadUrl } from "@/lib/constants";
+import { SITE_CONFIG } from "@/lib/constants";
 
 const NAV_LINKS = [
   { label: "Features", href: "#features" },
-  { label: "How It Works", href: "#how-it-works" },
+  { label: "Setup", href: "#how-it-works" },
   { label: "FAQ", href: "#faq" },
 ];
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const downloadUrl = getDownloadUrl();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/[0.07] bg-[#07090e]/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-[#111827]/8 bg-white/90 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 lg:px-8">
         {/* Brand */}
-        <a href="#" className="flex items-center gap-3 group">
-          <div className="relative h-9 w-9 overflow-hidden rounded-xl border border-white/15 bg-white/5 shadow-sm">
+        <a
+          href="#"
+          className="flex items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2563eb]"
+        >
+          <div className="relative h-8 w-8 overflow-hidden rounded-lg border border-[#111827]/10 bg-white">
             <Image
               src="/images/app.png"
-              alt="Mobile Mirror logo"
+              alt="Mobile Mirror icon"
               fill
-              sizes="36px"
-              className="object-cover scale-110"
+              sizes="32px"
+              className="scale-110 object-cover"
               priority
             />
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-[15px] font-semibold tracking-tight text-white">
+          <div className="flex items-baseline gap-2">
+            <span className="text-base font-medium tracking-[-0.01em] text-[#111827]">
               {SITE_CONFIG.name}
             </span>
-            <span className="hidden rounded-md border border-white/10 bg-white/[0.04] px-1.5 py-0.5 font-mono text-[11px] text-slate-400 sm:inline-block">
+            <span className="hidden font-mono text-xs text-[#6b7280] sm:inline">
               {SITE_CONFIG.version}
             </span>
           </div>
         </a>
 
         {/* Desktop Links */}
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
           {NAV_LINKS.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-slate-300 transition-colors hover:text-white"
+              className="text-sm font-normal text-[#4b5563] transition-colors duration-150 hover:text-[#111827] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2563eb]"
             >
               {item.label}
             </a>
           ))}
+        </nav>
+
+        {/* Desktop Actions */}
+        <div className="hidden items-center gap-5 md:flex">
           <a
             href={SITE_CONFIG.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-300 transition-colors hover:text-white"
+            className="text-sm font-normal text-[#4b5563] transition-colors duration-150 hover:text-[#111827] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2563eb]"
           >
-            <GitHubIcon className="h-4 w-4" />
             GitHub
           </a>
-        </nav>
-
-        {/* Desktop CTA */}
-        <div className="hidden items-center gap-3 md:flex">
           <a
-            href={downloadUrl}
-            download={SITE_CONFIG.installerFilename}
-            className="inline-flex items-center gap-2 rounded-lg bg-[#246bfd] px-4 py-2 text-sm font-medium text-white shadow-[0_1px_2px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.2)] transition-all hover:bg-[#1b5ee8] active:scale-[0.99]"
+            href="#download"
+            className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#111827] px-4 text-sm font-medium text-white shadow-[0_1px_2px_rgba(17,24,39,0.08)] transition-[background-color,transform] duration-150 hover:bg-[#1f2937] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563eb]"
           >
-            <Download className="h-4 w-4" />
-            Download (Windows)
+            <Download className="h-4 w-4" strokeWidth={1.5} />
+            Download
           </a>
         </div>
 
@@ -80,22 +79,27 @@ export function Navbar() {
           type="button"
           onClick={() => setMobileOpen((prev) => !prev)}
           aria-label="Toggle navigation menu"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-slate-200 md:hidden"
+          aria-expanded={mobileOpen}
+          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#111827]/12 bg-white text-[#111827] transition-colors duration-150 hover:bg-[#f7f8fa] md:hidden"
         >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {mobileOpen ? (
+            <X className="h-4 w-4" strokeWidth={1.5} />
+          ) : (
+            <Menu className="h-4 w-4" strokeWidth={1.5} />
+          )}
         </button>
       </div>
 
       {/* Mobile Dropdown */}
       {mobileOpen && (
-        <div className="border-t border-white/[0.07] bg-[#0b0e15] px-4 py-4 md:hidden">
-          <div className="flex flex-col gap-3">
+        <div className="border-t border-[#111827]/8 bg-white px-6 py-4 md:hidden">
+          <div className="flex flex-col gap-1">
             {NAV_LINKS.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-slate-200 hover:bg-white/[0.05]"
+                className="flex h-10 items-center rounded-lg px-3 text-sm font-normal text-[#111827] transition-colors duration-150 hover:bg-[#f7f8fa]"
               >
                 {item.label}
               </a>
@@ -104,18 +108,17 @@ export function Navbar() {
               href={SITE_CONFIG.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-200 hover:bg-white/[0.05]"
+              className="flex h-10 items-center rounded-lg px-3 text-sm font-normal text-[#4b5563] transition-colors duration-150 hover:bg-[#f7f8fa] hover:text-[#111827]"
             >
-              <GitHubIcon className="h-4 w-4" />
               GitHub
             </a>
             <a
-              href={downloadUrl}
-              download={SITE_CONFIG.installerFilename}
-              className="mt-1 inline-flex items-center justify-center gap-2 rounded-lg bg-[#246bfd] px-4 py-2.5 text-sm font-medium text-white"
+              href="#download"
+              onClick={() => setMobileOpen(false)}
+              className="mt-3 inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-[#111827] px-4 text-sm font-medium text-white"
             >
-              <Download className="h-4 w-4" />
-              Download for Windows
+              <Download className="h-4 w-4" strokeWidth={1.5} />
+              Download Mobile Mirror
             </a>
           </div>
         </div>

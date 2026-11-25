@@ -1,28 +1,36 @@
-# Mobile Mirror — Web Showcase
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Official Next.js (App Router) + TypeScript + Tailwind CSS landing page for **Mobile Mirror** — an ultra-low latency Android USB screen mirroring, voice-isolated audio capture, and zero-CPU MP4 recording desktop application for Windows.
+## Getting Started
 
-## Features
-- Dark Bento-grid UI matching the native SDL3 Mobile Mirror desktop dashboard
-- Interactive Hero Showcase with live quality switcher (`Auto / HD / FHD`), mic toggle, and recording timer
-- Automatic Windows installer download pointing permanently to the latest GitHub Release (`MobileMirror-Setup.exe`)
-- Local development fallback serving `/downloads/MobileMirror-Setup.exe`
-- Visual 3-step USB Debugging setup guide and FAQ accordion
-
-## Local Development
+First, run the development server:
 
 ```bash
-npm install
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Production Build & Vercel Deployment
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-```bash
-npm run lint
-npm run build
-```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-Deploy directly on [Vercel](https://vercel.com/new) by importing this repository.
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

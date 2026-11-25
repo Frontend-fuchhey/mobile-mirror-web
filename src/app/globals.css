@@ -1,43 +1,54 @@
 @import "tailwindcss";
 
 :root {
-  --background: #07090e;
-  --foreground: #f4f7fb;
-  --surface: #0e121b;
-  --surface-elevated: #141a26;
-  --accent: #246bfd;
-  --accent-hover: #1b5ee8;
+  --background: #ffffff;
+  --foreground: #111827;
+  --surface: #ffffff;
+  --surface-subtle: #f7f8fa;
+  --surface-raised: #eef1f5;
+  --hairline: rgba(17, 24, 39, 0.09);
+  --ink-secondary: #4b5563;
+  --ink-muted: #6b7280;
+  --accent: #2563eb;
+  --tally: #dc2626;
+  --positive: #15803d;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
 }
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-plex-sans), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
 }
 
-.bento-card {
-  background: linear-gradient(
-    180deg,
-    rgba(20, 26, 38, 0.78) 0%,
-    rgba(12, 16, 24, 0.92) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.75);
-}
-
-.bento-card:hover {
-  border-color: rgba(36, 107, 253, 0.35);
+/* Crisp physical keycap for hardware shortcuts */
+.keycap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 4px;
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 500;
+  border: 1px solid rgba(17, 24, 39, 0.14);
+  background-color: #ffffff;
+  color: #374151;
+  box-shadow: 0 1px 0 rgba(17, 24, 39, 0.08);
 }

@@ -1,38 +1,29 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Download, Smartphone, Usb, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const STEPS = [
   {
     number: "01",
-    title: "Download & Run Installer",
-    icon: Download,
+    title: "Install for Windows, macOS, or Linux",
     description:
-      "Download MobileMirror-Setup.exe and run the quick Windows installer. Everything — including ADB, SDL3, FFmpeg, and the Android server — is bundled automatically.",
-    callout: "Zero terminal commands, zero SDKs, installs in under 10 seconds.",
+      "Run MobileMirror-Setup.exe on Windows, drag Mobile Mirror.app into Applications on macOS, or extract MobileMirror-Linux-x86_64.tar.gz and run ./install.sh on Linux.",
+    note: "Native Rust binary with SDL3, FFmpeg, and server.jar ready to go.",
   },
   {
     number: "02",
-    title: "Enable USB Debugging",
-    icon: Smartphone,
+    title: "Connect Android (USB) or iPhone (AirPlay)",
     description:
-      "On your Android phone, unlock Developer Options once so your PC can establish a direct high-speed USB stream.",
+      "For Android, enable USB Debugging once under Developer Options. For iPhone or iPad, keep both devices on the same Wi-Fi and choose 'Mobile Mirror' in Control Center → Screen Mirroring.",
     pathSteps: [
-      "Settings",
-      "About Phone",
-      "Tap Build Number 7×",
-      "Developer Options",
-      "Enable USB Debugging",
+      "Android: Developer Options → USB Debugging",
+      "iOS: Control Center → Screen Mirroring",
     ],
   },
   {
     number: "03",
-    title: "Connect USB Cable & Enjoy",
-    icon: Usb,
+    title: "Mirror & record in one click",
     description:
-      "Plug your phone into your PC with a data USB cable, tap 'Allow' on the one-time USB Debugging prompt, and your screen mirrors instantly at 60–120 FPS.",
-    callout: "Auto-connects every time you plug in from then on.",
+      "Your phone screen opens automatically at up to 120 FPS with audio. Press R anytime to save lossless H.264 MP4 recordings directly to your Movies / Videos folder.",
+    note: "Reconnects automatically whenever you plug in or start AirPlay.",
   },
 ];
 
@@ -40,76 +31,61 @@ export function SetupGuide() {
   return (
     <section
       id="how-it-works"
-      className="border-y border-white/[0.06] bg-[#0a0d14]/80 py-24"
+      className="border-t border-[#111827]/8 bg-white py-20 lg:py-24"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <div className="max-w-2xl">
-          <p className="font-mono text-xs font-medium tracking-wider text-[#5b92ff] uppercase">
-            3-Step Setup Guide
+          <p className="font-mono text-xs text-[#6b7280]">
+            Setup
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            From download to live mirror in under a minute.
+          <h2 className="mt-2 text-3xl leading-[1.15] font-medium tracking-[-0.02em] text-[#111827] sm:text-4xl">
+            From installer to live mirror in under a minute
           </h2>
-          <p className="mt-3 text-base leading-relaxed text-slate-400">
-            Designed for everyday users as well as developers — no command line or driver
-            hunting required.
+          <p className="mt-3 text-base leading-relaxed text-[#4b5563]">
+            Built for everyday use as well as development—no command line or driver hunting.
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
-          {STEPS.map((step, index) => {
-            const Icon = step.icon;
-            return (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                className="bento-card flex flex-col justify-between rounded-2xl p-6"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#246bfd]/30 bg-[#246bfd]/15 text-[#7aa8ff]">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <span className="font-mono text-sm font-semibold text-slate-500">
-                      STEP {step.number}
-                    </span>
-                  </div>
+        {/* Ruled 3-Column Setup Ledger */}
+        <ol className="mt-12 grid grid-cols-1 divide-y divide-[#111827]/8 border-y border-[#111827]/8 lg:grid-cols-3 lg:divide-x lg:divide-y-0">
+          {STEPS.map((step) => (
+            <li
+              key={step.number}
+              className="flex flex-col justify-between py-8 lg:px-8 lg:first:pl-0 lg:last:pr-0"
+            >
+              <div>
+                <span className="font-mono text-xs tabular-nums text-[#6b7280]">
+                  {step.number}
+                </span>
+                <h3 className="mt-3 text-lg font-medium text-[#111827]">
+                  {step.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-[#4b5563]">
+                  {step.description}
+                </p>
+              </div>
 
-                  <h3 className="mt-5 text-lg font-semibold text-white">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-400">
-                    {step.description}
-                  </p>
+              {step.pathSteps ? (
+                <div className="mt-6 border-t border-[#111827]/8 pt-3">
+                  <div className="flex flex-wrap items-center gap-1 font-mono text-[11px] text-[#4b5563]">
+                    {step.pathSteps.map((crumb, idx) => (
+                      <span key={crumb} className="inline-flex items-center gap-1">
+                        <span className="text-[#111827]">{crumb}</span>
+                        {idx < step.pathSteps.length - 1 && (
+                          <ArrowRight className="h-3 w-3 text-[#6b7280]" strokeWidth={1.5} />
+                        )}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-
-                {step.pathSteps ? (
-                  <div className="mt-6 rounded-xl border border-white/[0.08] bg-[#080b11] p-3.5">
-                    <div className="flex flex-wrap items-center gap-1.5 text-xs">
-                      {step.pathSteps.map((crumb, idx) => (
-                        <span key={crumb} className="inline-flex items-center gap-1.5">
-                          <span className="rounded-md border border-white/10 bg-white/[0.05] px-2 py-1 font-medium text-slate-200">
-                            {crumb}
-                          </span>
-                          {idx < step.pathSteps.length - 1 && (
-                            <ArrowRight className="h-3 w-3 text-slate-500" />
-                          )}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="mt-6 rounded-xl border border-white/[0.08] bg-[#080b11] px-3.5 py-3 text-xs text-slate-300">
-                    {step.callout}
-                  </div>
-                )}
-              </motion.div>
-            );
-          })}
-        </div>
+              ) : (
+                <p className="mt-6 border-t border-[#111827]/8 pt-3 text-xs text-[#6b7280]">
+                  {step.note}
+                </p>
+              )}
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

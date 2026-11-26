@@ -54,7 +54,7 @@ export const PLATFORM_DOWNLOADS: Record<PlatformId, PlatformDownloadInfo> = {
 
 export const SITE_CONFIG = {
   name: "Mobile Mirror",
-  version: "v1.1.0",
+  version: "v1.1.1",
   githubUsername: GITHUB_USERNAME,
   repoName: REPO_NAME,
   get githubUrl() {

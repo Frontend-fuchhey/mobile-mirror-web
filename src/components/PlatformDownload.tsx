@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
-import { Download } from "lucide-react";
+import { Check, Copy, Download, Terminal } from "lucide-react";
 import { AppleIcon, GitHubIcon, LinuxIcon, WindowsIcon } from "@/components/Icons";
 import {
   PLATFORM_DOWNLOADS,
@@ -141,7 +141,17 @@ const DOWNLOAD_CARDS: Array<{
 export function AllPlatformsDownloadRow() {
   const autoDetected = useDetectedPlatform();
   const [hovered, setHovered] = useState<PlatformId | null>(null);
+  const [copiedWinget, setCopiedWinget] = useState(false);
   const selected = hovered ?? autoDetected;
+  const wingetCommand = "winget install Frontend-fuchhey.MobileMirror";
+
+  const copyWinget = () => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(wingetCommand).catch(() => {});
+      setCopiedWinget(true);
+      setTimeout(() => setCopiedWinget(false), 2000);
+    }
+  };
 
   return (
     <div id="download" className="w-full">
@@ -206,6 +216,37 @@ export function AllPlatformsDownloadRow() {
               </div>
             );
           })}
+        </div>
+      </div>
+
+      {/* Windows Package Manager (winget) zero-warning install bar */}
+      <div className="mt-6 flex flex-col items-start justify-between gap-3 rounded-xl border border-[#e5e5e5] bg-[#f8fafc] px-5 py-4 sm:flex-row sm:items-center">
+        <div className="flex items-center gap-2.5 text-xs text-[#525252]">
+          <Terminal className="h-4 w-4 shrink-0 text-[#171717]" />
+          <span>Install on Windows via terminal (no SmartScreen prompt):</span>
+        </div>
+        <div className="flex w-full items-center justify-between gap-2 rounded-lg border border-[#e5e5e5] bg-white px-3 py-1.5 sm:w-auto">
+          <code className="font-mono text-xs text-[#171717]">
+            {wingetCommand}
+          </code>
+          <button
+            type="button"
+            onClick={copyWinget}
+            aria-label="Copy winget install command"
+            className="inline-flex h-6 items-center gap-1 rounded px-1.5 text-xs font-medium text-[#737373] transition-colors hover:bg-[#f5f5f5] hover:text-[#171717]"
+          >
+            {copiedWinget ? (
+              <>
+                <Check className="h-3.5 w-3.5 text-emerald-600" />
+                <span className="text-emerald-600">Copied</span>
+              </>
+            ) : (
+              <>
+                <Copy className="h-3.5 w-3.5" />
+                <span>Copy</span>
+              </>
+            )}
+          </button>
         </div>
       </div>
 

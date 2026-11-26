@@ -64,25 +64,16 @@ export function Footer() {
             Open-source under the MIT License. All mirroring runs 100% locally over USB or LAN with zero telemetry.
           </p>
           <p>
-            Free code signing provided by{" "}
+            Built transparently from public source via{" "}
             <a
-              href="https://signpath.io/"
+              href={SITE_CONFIG.releasesUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="hover-underline font-medium text-[#171717]"
             >
-              SignPath.io
-            </a>
-            , certificate by{" "}
-            <a
-              href="https://signpath.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover-underline font-medium text-[#171717]"
-            >
-              SignPath Foundation
-            </a>
-            .
+              GitHub Actions
+            </a>{" "}
+            with verifiable SHA-256 checksums.
           </p>
         </div>
       </div>

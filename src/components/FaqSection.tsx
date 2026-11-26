@@ -16,9 +16,9 @@ const FAQ_ITEMS = [
       "Yes. Android phones connect over USB (ADB) at up to 120 FPS with system audio and voice-isolated microphone capture. iPhones and iPads connect wirelessly via built-in AirPlay 1 & 2 (with FairPlay authentication and AAC-ELD audio) or over USB QuickTime mode.",
   },
   {
-    question: "How are installers signed and verified on Windows, macOS, and Linux?",
+    question: "How are installers verified on Windows, macOS, and Linux?",
     answer:
-      "All release binaries are compiled directly from public source code in GitHub Actions with SHA-256 checksums (SHA256SUMS.txt). Free Windows code signing is provided by SignPath.io (certificate by SignPath Foundation). On macOS, if Gatekeeper prompts on first launch, run the included 'First Time Open (Bypass Gatekeeper).command' inside the DMG or right-click Mobile Mirror.app → Open.",
+      "All release binaries are compiled directly from public source code in GitHub Actions with verifiable SHA-256 checksums (SHA256SUMS.txt). Because Mobile Mirror is a free community open-source project without a paid commercial certificate, Windows SmartScreen may show a one-time notice on direct browser downloads — click 'More info' → 'Run anyway', or install cleanly via PowerShell with `winget install Frontend-fuchhey.MobileMirror`. On macOS, run the included 'First Time Open (Bypass Gatekeeper).command' inside the DMG or right-click Mobile Mirror.app → Open.",
   },
   {
     question: "What if my device is not detected?",

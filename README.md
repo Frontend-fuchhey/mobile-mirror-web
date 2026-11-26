@@ -20,12 +20,9 @@ Most phone mirroring tools require paid subscriptions, add watermarks to recordi
 
 ---
 
-## Code Signing & Privacy Policy
+## Privacy Policy
 
-Free code signing for Windows installers is provided by [SignPath.io](https://signpath.io/), and the code signing certificate is provided by the [SignPath Foundation](https://signpath.org/).
-
-- **Maintainers**: [Frontend-fuchhey](https://github.com/Frontend-fuchhey)
-- **Privacy Policy**: Mobile Mirror will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it.
+Mobile Mirror will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it. All mirroring and recording run locally on your machine with zero telemetry.
 
 ---
 

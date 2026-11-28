@@ -60,6 +60,9 @@ export const SITE_CONFIG = {
   get githubUrl() {
     return `https://github.com/${this.githubUsername}/${this.repoName}`;
   },
+  get githubStarsBadgeUrl() {
+    return `https://img.shields.io/github/stars/${this.githubUsername}/${this.repoName}?style=social`;
+  },
   get releasesUrl() {
     return `https://github.com/${this.githubUsername}/${this.repoName}/releases`;
   },

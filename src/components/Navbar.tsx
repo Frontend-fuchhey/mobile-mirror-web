@@ -54,16 +54,23 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Right: GitHub + Download */}
-        <div className="hidden items-center gap-5 md:flex">
+        {/* Right: GitHub + Live Stars Badge + Download */}
+        <div className="hidden items-center gap-4 md:flex">
           <a
             href={SITE_CONFIG.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover-underline inline-flex items-center gap-1.5 text-sm font-medium text-[#737373] transition-colors duration-150 hover:text-[#171717] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2563eb]"
+            aria-label="Star Mobile Mirror on GitHub"
+            className="inline-flex h-9 items-center gap-2 rounded-lg border border-[#e5e5e5] bg-white px-3 text-sm font-medium text-[#171717] transition-colors duration-150 hover:border-[#d4d4d4] hover:bg-[#f8fafc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563eb]"
           >
-            <GitHubIcon className="h-4 w-4 shrink-0" />
-            GitHub
+            <GitHubIcon className="h-4 w-4 shrink-0 text-[#171717]" />
+            <span>GitHub</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={SITE_CONFIG.githubStarsBadgeUrl}
+              alt="GitHub stars"
+              className="h-5 w-auto"
+            />
           </a>
           <a
             href="#download"
@@ -76,6 +83,15 @@ export function Navbar() {
 
         {/* Mobile Actions */}
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2 md:hidden">
+          <a
+            href={SITE_CONFIG.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Star Mobile Mirror on GitHub"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#e5e5e5] bg-white text-[#171717] transition-colors duration-150 hover:bg-[#f8fafc] sm:h-9 sm:w-9"
+          >
+            <GitHubIcon className="h-4 w-4 shrink-0" />
+          </a>
           <a
             href="#download"
             className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-[#171717] px-2.5 text-xs font-medium text-white transition-colors duration-150 hover:bg-[#262626] sm:h-9 sm:px-3"
@@ -118,10 +134,18 @@ export function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}
-              className="flex h-11 items-center gap-2 rounded-lg px-3 text-sm font-medium text-[#737373] transition-colors duration-150 hover:bg-[#f8fafc] hover:text-[#171717]"
+              className="flex h-11 items-center justify-between rounded-lg px-3 text-sm font-medium text-[#171717] transition-colors duration-150 hover:bg-[#f8fafc]"
             >
-              <GitHubIcon className="h-4 w-4 shrink-0" />
-              GitHub
+              <span className="inline-flex items-center gap-2">
+                <GitHubIcon className="h-4 w-4 shrink-0" />
+                Star on GitHub
+              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={SITE_CONFIG.githubStarsBadgeUrl}
+                alt="GitHub stars"
+                className="h-5 w-auto"
+              />
             </a>
           </nav>
         </div>

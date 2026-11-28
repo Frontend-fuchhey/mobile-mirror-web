@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
-import { Check, Copy, Download, Star, Terminal } from "lucide-react";
+import { Check, Copy, Download, Terminal } from "lucide-react";
 import { AppleIcon, GitHubIcon, LinuxIcon, WindowsIcon } from "@/components/Icons";
+import { GitHubStarPill } from "@/components/GitHubStarPill";
 import {
   PLATFORM_DOWNLOADS,
   SITE_CONFIG,
@@ -61,19 +62,10 @@ export function HeroPlatformDownload() {
           {current.label}
         </a>
 
-        <a
-          href={SITE_CONFIG.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-[#e5e5e5] bg-white px-5 text-sm font-medium text-[#171717] transition-colors duration-150 hover:border-[#d4d4d4] hover:bg-[#f8fafc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563eb]"
-        >
-          <GitHubIcon className="h-4 w-4 shrink-0 text-[#171717]" />
-          <span>Star on GitHub</span>
-          <Star className="h-3.5 w-3.5 shrink-0 fill-amber-400 text-amber-500" />
-        </a>
+        <GitHubStarPill size="md" />
       </div>
 
-      {/* Live GitHub Stars social proof + Platform Selector */}
+      {/* Direct Platform Selector / Downloads for Windows, macOS & Linux */}
       <div className="mt-4 flex flex-wrap items-center gap-2">
         {allPlatforms.map((id) => {
           const info = PLATFORM_DOWNLOADS[id];
@@ -102,25 +94,9 @@ export function HeroPlatformDownload() {
         </a>
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center gap-2.5">
-        <p className="font-mono text-xs text-[#737373]">
-          Free · Open source · {current.filename}
-        </p>
-        <a
-          href={SITE_CONFIG.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Mobile Mirror GitHub stars"
-          className="inline-flex items-center transition-opacity duration-150 hover:opacity-85"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={SITE_CONFIG.githubStarsBadgeUrl}
-            alt="GitHub stars"
-            className="h-5 w-auto"
-          />
-        </a>
-      </div>
+      <p className="mt-3 font-mono text-xs text-[#737373]">
+        Free · Open source · {current.filename}
+      </p>
     </div>
   );
 }

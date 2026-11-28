@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Menu, X, Download } from "lucide-react";
-import { GitHubIcon } from "@/components/Icons";
+import { GitHubStarPill } from "@/components/GitHubStarPill";
 import { SITE_CONFIG } from "@/lib/constants";
 
 const NAV_LINKS = [
@@ -54,24 +54,9 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Right: GitHub + Live Stars Badge + Download */}
-        <div className="hidden items-center gap-4 md:flex">
-          <a
-            href={SITE_CONFIG.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Star Mobile Mirror on GitHub"
-            className="inline-flex h-9 items-center gap-2 rounded-lg border border-[#e5e5e5] bg-white px-3 text-sm font-medium text-[#171717] transition-colors duration-150 hover:border-[#d4d4d4] hover:bg-[#f8fafc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563eb]"
-          >
-            <GitHubIcon className="h-4 w-4 shrink-0 text-[#171717]" />
-            <span>GitHub</span>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={SITE_CONFIG.githubStarsBadgeUrl}
-              alt="GitHub stars"
-              className="h-5 w-auto"
-            />
-          </a>
+        {/* Right: GitHub Star Pill + Download */}
+        <div className="hidden items-center gap-3 md:flex">
+          <GitHubStarPill size="sm" />
           <a
             href="#download"
             className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#171717] px-4 text-sm font-medium text-white transition-colors duration-150 hover:bg-[#262626] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563eb]"
@@ -83,15 +68,7 @@ export function Navbar() {
 
         {/* Mobile Actions */}
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2 md:hidden">
-          <a
-            href={SITE_CONFIG.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Star Mobile Mirror on GitHub"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#e5e5e5] bg-white text-[#171717] transition-colors duration-150 hover:bg-[#f8fafc] sm:h-9 sm:w-9"
-          >
-            <GitHubIcon className="h-4 w-4 shrink-0" />
-          </a>
+          <GitHubStarPill size="sm" className="h-8 px-2.5 text-xs sm:h-9 sm:px-3 sm:text-sm" />
           <a
             href="#download"
             className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-[#171717] px-2.5 text-xs font-medium text-white transition-colors duration-150 hover:bg-[#262626] sm:h-9 sm:px-3"
@@ -129,24 +106,9 @@ export function Navbar() {
                 {item.label}
               </a>
             ))}
-            <a
-              href={SITE_CONFIG.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileOpen(false)}
-              className="flex h-11 items-center justify-between rounded-lg px-3 text-sm font-medium text-[#171717] transition-colors duration-150 hover:bg-[#f8fafc]"
-            >
-              <span className="inline-flex items-center gap-2">
-                <GitHubIcon className="h-4 w-4 shrink-0" />
-                Star on GitHub
-              </span>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={SITE_CONFIG.githubStarsBadgeUrl}
-                alt="GitHub stars"
-                className="h-5 w-auto"
-              />
-            </a>
+            <div className="px-3 pt-2">
+              <GitHubStarPill size="sm" />
+            </div>
           </nav>
         </div>
       )}
